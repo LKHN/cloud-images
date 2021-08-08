@@ -1,5 +1,6 @@
 .idea
 packer_cache
+output-*
 ansible/collections/
 ansible/roles/ezamriy*
 .env.digitalocean
