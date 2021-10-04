@@ -16,6 +16,8 @@ variables {
   ssh_timeout           = "3600s"
   root_shutdown_command = "/sbin/shutdown -hP now"
   qemu_binary           = ""
+  vagrant_access_token  = ""
+  vagrant_box_tag       = ""
   //
   // AWS specific variables
   //
