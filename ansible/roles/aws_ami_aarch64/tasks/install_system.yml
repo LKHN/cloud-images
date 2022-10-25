@@ -4,7 +4,7 @@
   command: rpm --root=/rootfs --initdb
 
 - name: Installing the system release files
-  command: rpm --root=/rootfs --nodeps -ivh https://repo.almalinux.org/almalinux/almalinux-release-latest-8.aarch64.rpm
+  command: rpm --root=/rootfs --nodeps -ivh https://repo.almalinux.org/almalinux/almalinux-release-latest-8-beta.aarch64.rpm
 
 - name: Update the system
   command: dnf -y --installroot=/rootfs --nogpgcheck upgrade

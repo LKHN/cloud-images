@@ -1,8 +1,8 @@
 # AlmaLinux 8 kickstart file for Generic Cloud (OpenStack) aarch64 image
 
-url --url https://repo.almalinux.org/almalinux/8/BaseOS/aarch64/kickstart/
-repo --name=BaseOS --baseurl=https://repo.almalinux.org/almalinux/8/BaseOS/aarch64/os/
-repo --name=AppStream --baseurl=https://repo.almalinux.org/almalinux/8/AppStream/aarch64/os/
+url --url https://repo.almalinux.org/almalinux/8.7-beta/BaseOS/aarch64/kickstart/
+repo --name=BaseOS --baseurl=https://repo.almalinux.org/almalinux/8.7-beta/BaseOS/aarch64/os/
+repo --name=AppStream --baseurl=https://repo.almalinux.org/almalinux/8.7-beta/AppStream/aarch64/os/
 
 text
 skipx

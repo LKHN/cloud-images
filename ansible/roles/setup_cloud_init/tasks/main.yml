@@ -5,12 +5,29 @@
   with_items:
     - cloud_init_user
 
-- name: Install cloud-init
+- name: Install cloud-init on x86_64
   dnf:
     name:
-      - cloud-init
+      - "{{ cloud_init_pkg_x86_64 }}"
       - cloud-utils-growpart
       - dracut-config-generic
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: Install cloud-init on AArch64
+  dnf:
+    name:
+      - "{{ cloud_init_pkg_aarch64 }}"
+      - cloud-utils-growpart
+      - dracut-config-generic
+  when: ansible_facts['architecture'] == 'aarch64'
+
+- name: Install cloud-init on ppc64le
+  dnf:
+    name:
+      - "{{ cloud_init_pkg_ppc64le }}"
+      - cloud-utils-growpart
+      - dracut-config-generic
+  when: ansible_facts['architecture'] == 'ppc64le'
 
 - name: Enable cloud-init services
   service:

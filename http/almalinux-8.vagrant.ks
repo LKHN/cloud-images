@@ -1,8 +1,8 @@
 # AlmaLinux 8 kickstart file with Vagrant support
 
-url --url https://repo.almalinux.org/almalinux/8/BaseOS/x86_64/kickstart/
-repo --name=BaseOS --baseurl=https://repo.almalinux.org/almalinux/8/BaseOS/x86_64/os/
-repo --name=AppStream --baseurl=https://repo.almalinux.org/almalinux/8/AppStream/x86_64/os/
+url --url https://repo.almalinux.org/almalinux/8.7-beta/BaseOS/x86_64/kickstart/
+repo --name=BaseOS --baseurl=https://repo.almalinux.org/almalinux/8.7-beta/BaseOS/x86_64/os/
+repo --name=AppStream --baseurl=https://repo.almalinux.org/almalinux/8.7-beta/AppStream/x86_64/os/
 
 
 text

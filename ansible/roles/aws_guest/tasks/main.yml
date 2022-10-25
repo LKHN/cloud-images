@@ -90,7 +90,7 @@
 - name: Install additional software
   dnf:
     name:
-      - cloud-init
+      - "{{ cloud_init_pkg_x86_64 }}"
       - cloud-utils-growpart
       - dracut-config-generic
       - gdisk
