@@ -2,8 +2,8 @@ variables {
   //
   // common variables
   //
-  iso_url_8_x86_64       = "https://repo.almalinux.org/almalinux/8.7/isos/x86_64/AlmaLinux-8.7-x86_64-boot.iso"
-  iso_checksum_8_x86_64  = "file:https://repo.almalinux.org/almalinux/8.7/isos/x86_64/CHECKSUM"
+  iso_url_8_x86_64       = "https://repo.almalinux.org/vault/8.3/isos/x86_64/AlmaLinux-8.3-x86_64-boot.iso"
+  iso_checksum_8_x86_64  = "file:https://repo.almalinux.org/vault/8.3/isos/x86_64/CHECKSUM"
   iso_url_8_aarch64      = "https://repo.almalinux.org/almalinux/8.7/isos/aarch64/AlmaLinux-8.7-aarch64-boot.iso"
   iso_checksum_8_aarch64 = "file:https://repo.almalinux.org/almalinux/8.7/isos/aarch64/CHECKSUM"
   iso_url_8_ppc64le      = "https://repo.almalinux.org/almalinux/8.7/isos/ppc64le/AlmaLinux-8.7-ppc64le-boot.iso"
@@ -37,11 +37,11 @@ variables {
   aws_ssh_password              = "almalinux"
   aws_s3_bucket_name            = ""
   aws_role_name                 = "vmimport"
-  aws_ami_name_x86_64_8         = "AlmaLinux OS 8.7.{{isotime \"20060102\"}} x86_64"
+  aws_ami_name_x86_64_8         = "AlmaLinux OS 8.3.{{isotime \"20060102\"}} x86_64"
   aws_ami_name_aarch64_8        = "AlmaLinux OS 8.7.{{isotime \"20060102\"}} aarch64"
-  aws_ami_description_x86_64_8  = "Official AlmaLinux OS 8.7 x86_64 image"
+  aws_ami_description_x86_64_8  = "Official AlmaLinux OS 8.3 x86_64 image"
   aws_ami_description_aarch64_8 = "Official AlmaLinux OS 8.7 aarch64 image"
-  aws_ami_version_8             = "8.7.{{isotime \"20060102\"}}"
+  aws_ami_version_8             = "8.3.{{isotime \"20060102\"}}"
   aws_ami_name_x86_64_9         = "AlmaLinux OS 9.0.{{isotime \"20060102\"}} x86_64"
   aws_ami_name_aarch64_9        = "AlmaLinux OS 9.0.{{isotime \"20060102\"}} aarch64"
   aws_ami_description_x86_64_9  = "Official AlmaLinux OS 9.0 x86_64 image"
