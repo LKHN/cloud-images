@@ -78,14 +78,6 @@ def test_kmod_blacklist(host, kmod):
         assert blacklist.contains('options nouveau modeset=0')
 
 
-def test_infra_yum_variable(host):
-    """'infra' yum variable should be set to 'azure'."""
-    file_path = '/etc/yum/vars/infra'
-    assert host.file(file_path).content_string.strip() == 'azure'
-    context = host.run(f'ls -Z {file_path} | cut -d " " -f 1').stdout.strip()
-    assert context == 'system_u:object_r:etc_t:s0'
-
-
 def test_network_manager_enabled(host):
     """NetworkManager should be running."""
     nm = host.service('NetworkManager')
@@ -93,19 +85,9 @@ def test_network_manager_enabled(host):
     assert nm.is_enabled
 
 
-def test_dhclient_timeout(host):
-    """dhclient timeout should be 300 seconds."""
-    if int(host.system_info.release[0]) > 8:
-        pytest.skip('deprecated on EL>=9')
-    with host.sudo():
-        content = host.file('/etc/dhcp/dhclient.conf').content_string
-        re_rslt = re.search(r'^timeout\s+(\d+);', content, flags=re.MULTILINE)
-        assert re_rslt.group(1) == '300'
-
-
 def test_network_manager_default_dhcp_timeout(host):
     """NetworkManager default DHCP timeout should be 300 seconds."""
-    file_path = '/etc/NetworkManager/conf.d/dhcp.conf'
+    file_path = '/etc/NetworkManager/conf.d/99-dhcp-timeout.conf'
     dhcp_conf = host.file(file_path)
     assert dhcp_conf.user == 'root'
     assert dhcp_conf.group == 'root'
@@ -168,9 +150,6 @@ def test_walinuxagent_config(host):
     content = cfg_file.content_string
     # resource disk formatting should be enabled
     assert re.search(r'^ResourceDisk\.Format=y$', content,
-                     flags=re.MULTILINE) is not None
-    # resource disk swap size should be 2048
-    assert re.search(r'^ResourceDisk\.SwapSizeMB=2048$', content,
                      flags=re.MULTILINE) is not None
 
 

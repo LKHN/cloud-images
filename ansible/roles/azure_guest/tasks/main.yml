@@ -22,18 +22,32 @@
     - blacklist lbm-nouveau
     - blacklist floppy
 
-- name: Set infra yum variable to 'azure'
-  copy:
-    content: 'azure'
-    dest: /etc/yum/vars/infra
-    owner: root
-    group: root
-    mode: 0644
+- name: Install NetworkManager Cloud Setup
+  ansible.builtin.dnf:
+    name: NetworkManager-cloud-setup
+    state: present
 
-- name: Enable NetworkManager service
-  service:
-    name: NetworkManager
+- name: Configure NetworkManager Cloud Setup
+  file:
+    path: /etc/systemd/system/nm-cloud-setup.service.d
+    state: directory
+
+- name: Set Azure as Cloud provder for NetworkManager Cloud Setup
+  lineinfile:
+    path: /etc/systemd/system/nm-cloud-setup.service.d/10-enable-azure.conf
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - '[Service]'
+    - Environment=NM_CLOUD_SETUP_AZURE=yes
+
+- name: Enable NetworkManager Cloud Setup service and timer
+  ansible.builtin.systemd:
+    name: "{{ item }}"
     enabled: yes
+  loop:
+    - nm-cloud-setup.service
+    - nm-cloud-setup.timer
 
 - name: Configure /etc/sysconfig/network-scripts/ifcfg-eth0
   copy:
@@ -43,18 +57,9 @@
     group: root
     mode: 0644
 
-- name: Configure dhclient
-  lineinfile:
-    path: /etc/dhcp/dhclient.conf
-    line: "{{ item }}"
-  with_items:
-    - 'timeout 300;'
-    - 'retry 60;'
-  when: ansible_facts['distribution_major_version'] == '8'
-
 - name: Configure NetworkManager default DHCP timeout
   community.general.ini_file:
-    path: /etc/NetworkManager/conf.d/dhcp.conf
+    path: /etc/NetworkManager/conf.d/99-dhcp-timeout.conf
     section: connection
     option: ipv4.dhcp-timeout
     value: 300
@@ -68,24 +73,10 @@
     name: WALinuxAgent
     state: present
 
-- name: Enable swap on resource disk
-  lineinfile:
-    path: /etc/waagent.conf
-    regexp: '^ResourceDisk\.EnableSwap='
-    line: 'ResourceDisk.EnableSwap=y'
-    state: present
-
-- name: Set resource disk swap size to 2048
-  lineinfile:
-    path: /etc/waagent.conf
-    regexp: '^ResourceDisk.SwapSizeMB='
-    line: 'ResourceDisk.SwapSizeMB=2048'
-    state: present
-
 - name: Enable waagent service
-  service:
-    name: waagent
-    enabled: true
+  ansible.builtin.systemd:
+    name: waagent.service
+    enabled: yes
 
 - name: Set sshd ClientAliveInterval to 180
   lineinfile:
@@ -159,4 +150,4 @@
     mode: 0644
 
 - name: Update initramfs
-  command: dracut -f -v
+  command: dracut -f --regenerate-all
