@@ -21,7 +21,9 @@ selinux --enforcing
 bootloader --location=mbr
 zerombr
 clearpart --all --initlabel
-autopart --type=plain --nohome --noboot --noswap
+part /boot/efi --size=200 --fstype=efi
+part /boot --size=1024 --fstype=xfs
+part / --fstype=xfs
 
 rootpw vagrant
 user --name=vagrant --plaintext --password vagrant

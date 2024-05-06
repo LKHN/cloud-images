@@ -22,8 +22,9 @@ selinux --enforcing
 bootloader --append="console=ttyS0,115200n8 console=tty0 crashkernel=auto net.ifnames=0 no_timer_check" --location=mbr --timeout=1
 zerombr
 clearpart --all --initlabel
-reqpart
-part / --fstype="xfs" --size=8000
+part /boot/efi --size=200 --fstype=efi
+part /boot --size=1024 --fstype=xfs
+part / --fstype=xfs
 
 rootpw --plaintext almalinux
 

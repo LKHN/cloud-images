@@ -20,10 +20,21 @@ selinux --enforcing
 
 # TODO: remove "console=tty0" from here
 bootloader --append="console=ttyS0,115200n8 console=tty0 crashkernel=auto net.ifnames=0 no_timer_check" --location=mbr --timeout=1
-zerombr
-clearpart --all --initlabel
-reqpart
-part / --fstype="xfs" --size=8000
+
+%pre --erroronfail
+
+parted -s -a optimal /dev/sda -- mklabel gpt
+parted -s -a optimal /dev/sda -- mkpart biosboot 1MiB 2MiB set 1 bios_grub on
+parted -s -a optimal /dev/sda -- mkpart '"EFI System Partition"' fat32 2MiB 202MiB set 2 esp on
+parted -s -a optimal /dev/sda -- mkpart boot xfs 202MiB 1226MiB
+parted -s -a optimal /dev/sda -- mkpart root xfs 1226MiB 100%
+
+%end
+
+part biosboot --fstype=biosboot --onpart=sda1
+part /boot/efi --fstype=efi --onpart=sda2
+part /boot --fstype=xfs --onpart=sda3
+part / --fstype=xfs --onpart=sda4
 
 rootpw --plaintext almalinux
 

@@ -23,7 +23,8 @@ bootloader --append="console=ttyS0,115200n8 console=tty0 crashkernel=auto net.if
 zerombr
 clearpart --all --initlabel
 reqpart
-part / --fstype="xfs" --size=8000
+part /boot --size=1024 --fstype=xfs
+part / --fstype=xfs
 
 rootpw --plaintext almalinux
 
