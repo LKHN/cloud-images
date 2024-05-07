@@ -22,9 +22,9 @@ bootloader --timeout=0 --location=mbr --append="console=tty0 console=ttyS0,11520
 
 zerombr
 clearpart --all --initlabel
-part /boot/efi --size=200 --fstype=efi
-part /boot --size=512 --fstype=xfs
-part / --size=8000 --fstype=xfs
+part /boot/efi --fstype=efi --size=200
+part /boot --fstype=xfs --size=1024
+part / --fstype=xfs --grow
 
 rootpw --plaintext almalinux
 

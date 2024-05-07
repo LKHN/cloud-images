@@ -22,7 +22,9 @@ bootloader --timeout=0 --location=mbr --append="console=tty0 console=ttyS0,11520
 
 zerombr
 clearpart --all --initlabel
-autopart --type=plain --nohome --noboot --noswap
+part /boot/efi --fstype=efi --size=200
+part /boot --fstype=xfs --size=1024
+part / --fstype=xfs --grow
 
 rootpw vagrant
 user --name=vagrant --plaintext --password vagrant
