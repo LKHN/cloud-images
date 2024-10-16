@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "name": "almalinux_9_ami_x86_64",
+      "builder_type": "amazon-ebssurrogate",
+      "build_time": 1729116882,
+      "files": null,
+      "artifact_id": "us-east-1:ami-04e922506812b8993",
+      "packer_run_uuid": "17f7e8b7-a3a6-8d78-07b5-5f19aae7d33d",
+      "custom_data": null
+    },
+    {
+      "name": "almalinux_9_ami_aarch64",
+      "builder_type": "amazon-ebssurrogate",
+      "build_time": 1729116883,
+      "files": null,
+      "artifact_id": "us-east-1:ami-0f50fb2d986fd0c7e",
+      "packer_run_uuid": "96fbc36b-b5de-b70b-5ad3-5cabe8823be2",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "96fbc36b-b5de-b70b-5ad3-5cabe8823be2"
+}
