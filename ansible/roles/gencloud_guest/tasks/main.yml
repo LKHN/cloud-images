@@ -37,6 +37,7 @@
 - name: Install TuneD
   ansible.builtin.dnf:
     name: tuned
+    install_weak_deps: false
     state: present
 
 - name: Enable TuneD service
